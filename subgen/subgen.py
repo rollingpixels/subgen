@@ -23,6 +23,7 @@ whisper_model = os.getenv('WHISPER_MODEL', "medium")
 whisper_speedup = converttobool(os.getenv('WHISPER_SPEEDUP', "False"))
 whisper_threads = os.getenv('WHISPER_THREADS', "4")
 whisper_processors = os.getenv('WHISPER_PROCESSORS', "1")
+WHISPER_CUBLAS = os.getenv('WHISPER_CUBLAS', "1"
 procaddedmedia = converttobool(os.getenv('PROCADDEDMEDIA', "True"))
 procmediaonplay = converttobool(os.getenv('PROCMEDIAONPLAY', "False"))
 namesublang = os.getenv('NAMESUBLANG', "aa")
@@ -104,7 +105,7 @@ def run_whisper(inputwav, finalsubname):
     print("Starting whisper")
     os.chdir("/whisper.cpp")
     command = "./main -m models/ggml-{}.bin -of \"{}\" -t {} -p {} -osrt -f \"{}\"" .format(
-        whisper_model, finalsubname, whisper_threads, whisper_processors, inputwav)
+        whisper_model, finalsubname, whisper_threads, whisper_processors, WHISPER_CUBLAS, inputwav)
     if (whisper_speedup):
         command = command.replace("-osrt", "-osrt -su")
     print("Command: " + command)
